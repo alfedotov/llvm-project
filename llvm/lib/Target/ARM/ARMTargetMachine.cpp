@@ -534,4 +534,7 @@ void ARMPassConfig::addPreEmitPass() {
 
   addPass(createARMConstantIslandPass());
   addPass(createARMLowOverheadLoopsPass());
+
+
+  addPass(createARMOptShiftInsnsPass());
 }

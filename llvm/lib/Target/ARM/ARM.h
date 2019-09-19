@@ -37,6 +37,7 @@ class PassRegistry;
 
 Pass *createMVETailPredicationPass();
 FunctionPass *createARMLowOverheadLoopsPass();
+FunctionPass *createARMOptShiftInsnsPass();
 Pass *createARMParallelDSPPass();
 FunctionPass *createARMISelDag(ARMBaseTargetMachine &TM,
                                CodeGenOpt::Level OptLevel);
@@ -68,6 +69,7 @@ void initializeThumb2SizeReducePass(PassRegistry &);
 void initializeThumb2ITBlockPass(PassRegistry &);
 void initializeMVEVPTBlockPass(PassRegistry &);
 void initializeARMLowOverheadLoopsPass(PassRegistry &);
+void initializeARMOptShiftInsnsPass(PassRegistry &);
 void initializeMVETailPredicationPass(PassRegistry &);
 
 } // end namespace llvm
