@@ -1,4 +1,4 @@
-# RUN: llc -o - %s -m=armv8r-- -verify-machineinstrs | FileCheck %s
+; RUN: llc -o - %s -m=armv8r-- -verify-machineinstrs | FileCheck %s
 
 ;Pass to optimize following pattern and eliminate extra checks & branches:
 ;shift: u8, int: u32

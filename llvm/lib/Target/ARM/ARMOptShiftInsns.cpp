@@ -50,6 +50,11 @@ public:
 
 private:
   bool pattern_CMP_ANDne(MachineFunction &MF);
+
+  //
+  // A map used to track the changes done by this pass.
+  //
+  std::set<MachineInstr *> DeadInstr;
 };
 } // namespace
 
@@ -67,8 +72,14 @@ bool ARMOptShiftInsns::runOnMachineFunction(MachineFunction &mf) {
 
   bool Modified = false;
 
+  DeadInstr.clear();
+
   // We can have different cases (depends on which ISA is used Thumb/ARM)
   Modified |= pattern_CMP_ANDne(mf);
+
+  for (MachineInstr *MI : DeadInstr) {
+    MI->eraseFromParent();
+  }
 
   return Modified;
 }
@@ -101,11 +112,21 @@ bool ARMOptShiftInsns::pattern_CMP_ANDne(MachineFunction &mf) {
 
       errs() << MI << "\n";
       //search for ANDne
-      if (MI.getOpcode() == ARM::ANDrsr) {
+      if (MI.getOpcode() == ARM::RSBri) {
         candidate = &MI;
       }
 
+    }
+
+    if (candidate) {
+      MachineOperand op0 = candidate->getOperand(0);
+      MachineOperand op1 = candidate->getOperand(1);
+      MachineOperand op2 = candidate->getOperand(2);
       /* now check all other stuff */
+      if (op2.isImm() && op2.getImm() == 32) {
+      
+
+      }
 
     }
 
